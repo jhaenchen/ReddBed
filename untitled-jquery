@@ -2,10 +2,19 @@ $(document).ready(function(){
 	$("#submit").click(function(){
 		getInfo($("#url")[0].value);
 	});
+	$("#sample").html(getInfo("http://greatergood.berkeley.edu/article/item/this_is_your_brain_on_heartbreak"));
+	setInterval(function(){
+		$(".item").each(function(){updateInfo($(this))});
+	},5000);
 });
 
 
-
+var updateInfo = function(toUpdate){
+	var postUrl = $(toUpdate).find(".title").children("a").attr("href");
+	console.log(postUrl);
+	var newInfo = getInfo(postUrl);
+	toUpdate.parent().html(newInfo);
+};
 var getInfo = function(url){
 	
 	$.ajax({
