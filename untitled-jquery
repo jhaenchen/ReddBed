@@ -2,16 +2,9 @@ $(document).ready(function(){
 	$("#submit").click(function(){
 		getInfo($("#url")[0].value);
 	});
-	setInterval(function(){
-		$(".item").each(function(){refreshInfo(this)});
-	}, 15000)
-	
-	
 });
 
-var refreshInfo = function(toRefresh){
-	console.log(jQuery(toRefresh).find(".title")[0].find("a"));
-};
+
 
 var getInfo = function(url){
 	
@@ -22,12 +15,12 @@ var getInfo = function(url){
 				console.log(response);
 				console.log(response.data.children[0].data);
 				var post = response.data.children[0].data;
-				var html = createEmbed(post.title,post.domain,post.created_utc,post.author,post.subreddit,post.num_comments,post.score,post.thumbnail,post.permalink);
+				var html = createEmbed(post.title,post.url,post.domain,post.created_utc,post.author,post.subreddit,post.num_comments,post.score,post.thumbnail,post.permalink);
 				$("#returnEmbed").html(html);
 	        }
 	});
 };
 
-var createEmbed = function(title,domain,date,user,subreddit,commentCount,score,thumbnail,link){
-	return "<div class=\"item\"><div class=\"vote_container\"><div class=\"vote up\"></div><p class=\"votes\">"+score+"</p><div class=\"vote down\"></div></div><div class=\"thumbnail\"><img src=\""+thumbnail+"\"></div><div class=\"details\"><p class=\"title\"><a href=\"http://www.reddit.com"+link+"\">"+title+"</a><span style=\"font-size:10px;  color: rgb(136, 136, 136);\">("+domain+")</span></p><p class=\"tagline\">submitted <time title=\""+date+"\" class=\"live-timestamp\">4 hours ago</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"/\">/r/"+subreddit+"</a></p><p class=\"comment\"><b>View "+commentCount+" comments</b></p></div></div>";
+var createEmbed = function(title,url,domain,date,user,subreddit,commentCount,score,thumbnail,link){
+	return "<div class=\"item\"><div class=\"vote_container\"><div class=\"vote up\"></div><p class=\"votes\">"+score+"</p><div class=\"vote down\"></div></div><div class=\"thumbnail\"><img src=\""+thumbnail+"\"></div><div class=\"details\"><p class=\"title\"><a href=\""+url+"\">"+title+"</a><span style=\"font-size:10px;  color: rgb(136, 136, 136);\">("+domain+")</span></p><p class=\"tagline\">submitted <time title=\""+date+"\" class=\"live-timestamp\">4 hours ago</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"/\">/r/"+subreddit+"</a></p><p class=\"comment\"><a href=\"http://www.reddit.com"+link+"\"<b>View "+commentCount+" comments</b></p></div></div>";
 };
