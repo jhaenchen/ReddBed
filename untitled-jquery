@@ -16,7 +16,7 @@ var getInfo = function(url){
 				console.log(response.data.children[0].data);
 				var post = response.data.children[0].data;
 				var html = createEmbed(post.title,post.url,post.domain,post.created_utc,post.author,post.subreddit,post.num_comments,post.score,post.thumbnail,post.permalink);
-				$("#returnEmbed").html(html);
+				$("#sample").html(html);
 	        }
 	});
 };
