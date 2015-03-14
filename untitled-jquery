@@ -2,6 +2,7 @@ $(document).ready(function(){
 	$("#submit").click(function(){
 		getInfo($("#url")[0].value);
 	});
+	$('#test').embedly({key: '6e3441d74a0642e0827f6710d800a79c'});
 });
 
 
