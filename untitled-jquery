@@ -2,8 +2,8 @@ $(document).ready(function(){
 	$("#submit").click(function(){
 		getInfo($("#url")[0].value);
 	});
-	$("#sample").html(getInfo("http://greatergood.berkeley.edu/article/item/this_is_your_brain_on_heartbreak"));
-	
+	//$("#sample").html(getInfo("http://greatergood.berkeley.edu/article/item/this_is_your_brain_on_heartbreak"));
+	getFrontPageLink();
 	setInterval(function(){
 		$(".item").each(function(){updateInfo($(this));});
 	},5000);
@@ -20,13 +20,36 @@ var updateInfo = function(toUpdate){
 	
 
 };
+
+var getFrontPageLink = function(){
+	$.ajax({
+	        url: 'http://api.reddit.com/',
+	        dataType: 'json',
+	        success: function(response) {
+				//console.log("Front page link:" + response);
+				console.log("Front page:" + response.data.children[0].data);
+				var posts = response.data.children;
+				var frontPost;
+				for (i = 0; i < response.data.children.length-1; i++) {
+				    if (response.data.children[i].data.url.length > 0) { 
+						frontPost = response.data.children[i].data.url;
+						break;
+					};
+				}
+				console.log("Front post is: "+frontPost);
+				getInfo(frontPost);
+				
+	        }
+	});
+};
+
 var getInfo = function(url){
 	
 	$.ajax({
 	        url: 'http://www.reddit.com/api/info.json?url='+url,
 	        dataType: 'json',
 	        success: function(response) {
-				console.log(response);
+				console.log("received: " + response);
 				console.log(response.data.children[0].data);
 				var post = response.data.children[0].data;
 				var html = createEmbed(post.title,post.url,post.domain,post.created_utc,post.author,post.subreddit,post.num_comments,post.score,post.thumbnail,post.permalink);
