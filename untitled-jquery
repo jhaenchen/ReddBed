@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$("#submit").click(function(){
-		getInfo($("#url")[0].value);
+		getInfo($("#url")[0].value,$("#sample"),"append");
 	});
 	//$("#sample").html(getInfo("http://greatergood.berkeley.edu/article/item/this_is_your_brain_on_heartbreak"));
 	getFrontPageLink();
@@ -14,8 +14,7 @@ var updateInfo = function(toUpdate){
 	
 	var postUrl = $(toUpdate).find(".title").children("a").attr("href");
 	console.log(postUrl);
-	var newInfo = getInfo(postUrl);
-	toUpdate.parent().html(newInfo);
+	getInfo(postUrl,toUpdate,"replace");
 	
 	
 
@@ -33,17 +32,17 @@ var getFrontPageLink = function(){
 				for (i = 0; i < response.data.children.length-1; i++) {
 				    if (response.data.children[i].data.url.length > 0) { 
 						frontPost = response.data.children[i].data.url;
-						break;
+						getInfo(frontPost,$(sample),"prepend");
 					};
 				}
-				console.log("Front post is: "+frontPost);
-				getInfo(frontPost);
+				
+				
 				
 	        }
 	});
 };
 
-var getInfo = function(url){
+var getInfo = function(url,object,mode){
 	
 	$.ajax({
 	        url: 'http://www.reddit.com/api/info.json?url='+url,
@@ -53,7 +52,17 @@ var getInfo = function(url){
 				console.log(response.data.children[0].data);
 				var post = response.data.children[0].data;
 				var html = createEmbed(post.title,post.url,post.domain,post.created_utc,post.author,post.subreddit,post.num_comments,post.score,post.thumbnail,post.permalink);
-				$("#sample").html(html);
+				switch(mode){
+				case "replace":
+					object.replaceWith(html);
+					break;
+				case "prepend":
+					object.prepend(html);
+					break;
+				default:
+					break;
+				}
+				
 	        }
 	});
 };
