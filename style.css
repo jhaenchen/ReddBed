@@ -26,6 +26,21 @@ body{
 	margin:auto;
 }
 
+#submit{
+	border: 1px solid #c4dbf1;
+	  background: #ffffff none repeat-x scroll center left;
+	  background-image: url(reddit-images.png);
+	  background-position: 0px -278px;
+	  background-repeat: repeat;
+	  font-family: verdana, arial, helvetica, sans-serif;
+	    font-kerning: auto;
+	    font-size: 15px;
+	    font-stretch: normal;
+	    font-style: normal;
+	    font-variant: normal;
+	    font-variant-ligatures: normal;
+	    color:rgb(51, 102, 153);
+}
 
 
 
