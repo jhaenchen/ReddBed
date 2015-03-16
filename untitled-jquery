@@ -1,11 +1,11 @@
 $(document).ready(function(){
 	$("#submit").click(function(){
-		getInfo($("#url")[0].value,$("#sample"),"prepend");
+		getInfo($("#url")[0].value,$("#returnEmbed"),"fill");
 	});
 	var passedUrl = getQueryVariable();
 	if(passedUrl.length > 0){
 		console.log(passedUrl);
-		getInfo(passedUrl,$("#returnEmbed"),"prepend");
+		getInfo(passedUrl,$("#returnEmbed"),"fill");
 		//getInfo(passedUrl,$("#returnEmbed"),"prepend");
 	}
 	//$("#sample").html(getInfo("http://greatergood.berkeley.edu/article/item/this_is_your_brain_on_heartbreak"));
@@ -62,7 +62,8 @@ var getInfo = function(url,object,mode){
 	        url: 'http://www.reddit.com/api/info.json?url='+url,
 	        dataType: 'json',
 	        success: function(response) {
-				$("#loading").hide();
+				document.getElementById("loading").style.display = 'none';
+				//$("#loading").hide();
 				console.log("received: " + response);
 				console.log(response.data.children[0].data);
 				var post = response.data.children[0].data;
@@ -73,6 +74,9 @@ var getInfo = function(url,object,mode){
 					break;
 				case "prepend":
 					object.prepend(html);
+					break;
+				case "fill":
+					object.html(html);
 					break;
 				default:
 					break;
