@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$("#submit").click(function(){
-		getInfo($("#url")[0].value,$("#sample"),"append");
+		getInfo($("#url")[0].value,$("#sample"),"prepend");
 	});
 	//$("#sample").html(getInfo("http://greatergood.berkeley.edu/article/item/this_is_your_brain_on_heartbreak"));
 	getFrontPageLink();
