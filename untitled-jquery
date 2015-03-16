@@ -2,6 +2,12 @@ $(document).ready(function(){
 	$("#submit").click(function(){
 		getInfo($("#url")[0].value,$("#sample"),"prepend");
 	});
+	var passedUrl = getQueryVariable();
+	if(passedUrl.length > 0){
+		console.log(passedUrl);
+		getInfo(passedUrl,$("#returnEmbed"),"prepend");
+		//getInfo(passedUrl,$("#returnEmbed"),"prepend");
+	}
 	//$("#sample").html(getInfo("http://greatergood.berkeley.edu/article/item/this_is_your_brain_on_heartbreak"));
 	getFrontPageLink();
 	setInterval(function(){
@@ -20,6 +26,13 @@ var updateInfo = function(toUpdate){
 
 };
 
+var getQueryVariable = function()
+{
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       return vars;
+};
+
 var getFrontPageLink = function(){
 	$.ajax({
 	        url: 'http://api.reddit.com/',
@@ -33,7 +46,7 @@ var getFrontPageLink = function(){
 				for (i = 0; i < response.data.children.length-1; i++) {
 				    if (response.data.children[i].data.url.length > 0) { 
 						frontPost = response.data.children[i].data.url;
-						getInfo(frontPost,$(sample),"prepend");
+						getInfo(frontPost,$("#sample"),"prepend");
 					};
 				}
 				
