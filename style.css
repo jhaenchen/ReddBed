@@ -44,7 +44,7 @@ body{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
-	margin-bottom:5px;
+	margin-bottom:10px;
 }
 
 #submit{
@@ -62,7 +62,12 @@ body{
 	    font-variant-ligatures: normal;
 	    color:rgb(51, 102, 153);
 }
-
+#loading{
+	display:block;
+	    margin:auto;
+		height:40px;
+		width:40px;
+}
 
 
 

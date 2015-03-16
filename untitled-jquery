@@ -25,6 +25,7 @@ var getFrontPageLink = function(){
 	        url: 'http://api.reddit.com/',
 	        dataType: 'json',
 	        success: function(response) {
+				
 				//console.log("Front page link:" + response);
 				console.log("Front page:" + response.data.children[0].data);
 				var posts = response.data.children;
@@ -48,6 +49,7 @@ var getInfo = function(url,object,mode){
 	        url: 'http://www.reddit.com/api/info.json?url='+url,
 	        dataType: 'json',
 	        success: function(response) {
+				$("#loading").hide();
 				console.log("received: " + response);
 				console.log(response.data.children[0].data);
 				var post = response.data.children[0].data;
