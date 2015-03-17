@@ -40,6 +40,7 @@ for(var i = 0; i < allPosts.length; i++){
 	getInfo(allPosts.item(i).getElementsByTagName("a").item(0).href,"fill",allPosts.item(i));
 };
 
+//Update functionality
 setInterval(function(){
          var allPosts = document.getElementsByClassName("reddit_post");
 		 for(var i = 0; i < allPosts.length; i++){
@@ -47,6 +48,18 @@ setInterval(function(){
 			getInfo(allPosts.item(i).getElementsByClassName("title").item(0).getElementsByTagName("a").item(0).href,"fill",allPosts.item(i));
 		}
     },5000);
+
+var styleEl = document.createElement('style'),
+      styleSheet;
+	  styleEl.setAttribute("id","reddbed-style");
+  // Append style element to head
+  document.head.appendChild(styleEl);
+
+  // Grab style sheet
+  //styleSheet = styleEl.sheet;
+  console.log(styleEl);
+   document.getElementById('reddbed-style').innerHTML = ".title{ font-family: verdana, arial, helvetica, sans-serif; font-kerning: auto; font-size: 16px; font-stretch: normal; font-style: normal; font-variant: normal; font-variant-ligatures: normal; font-weight: normal; margin-right: .4em; position:relative; top:px; margin-top:0px; margin-bottom:5px; } .tagline{ font-family: verdana, arial, helvetica, sans-serif; font-kerning: auto; font-size: 10px; font-stretch: normal; font-style: normal; font-variant: normal; font-variant-ligatures: normal; font-weight: normal; margin-top:-5px; margin-bottom:0px; } .details{ margin-left:135px; } .thumbnail img{ display: block; } .thumbnail, .item{ float:left; margin-right:5px; vertical-align:top; } .vote{ height:14px; width:15px; } .up{ background-image:url(\"reddit-images.png\"); background-position: -63px -818px; background-repeat: no-repeat; margin:auto auto; bottom-margin:0px; margin-top:2px; } .down{ background-image:url(\"reddit-images.png\"); background-position: -21px -818px; background-repeat: no-repeat; margin:auto auto; bottom-margin:0px; } a, .title a{ text-decoration: none; } a:hover { text-decoration: underline; } .title a:hover{ text-decoration:none; } .item{ height:auto; width:100%; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; border:2px solid black; background-color:#F0F0F0; padding-left:5px; margin-right:5px; margin-bottom:2px; } .comment{ font-family: verdana, arial, helvetica, sans-serif; font-kerning: auto; font-size: 10px; font-stretch: normal; font-style: normal; font-variant: normal; font-variant-ligatures: normal; font-weight: normal; margin-top:2px; margin-bottom:2px; } .vote_container{ width:37px; float:left; height:48px; text-align:center; padding-right:10px; padding-left:3px; } .vote_container p{ margin-top:1px; margin-bottom:0px; font-family: verdana, arial, helvetica, sans-serif; font-kerning: auto; font-size: 13px; font-stretch: normal; font-style: normal; font-variant: normal; font-variant-ligatures: normal; font-weight: bold; color: #c6c6c6; } img{ width:70px; }";
+	//styleEl.innerHTML("body{font-size:12px;}\n.title{font-size:22;}");
 
 var createEmbed = function(title,url,domain,date,user,subreddit,commentCount,score,thumbnail,link){
 	return "<div class=\"item\"><div class=\"vote_container\"><div class=\"vote up\"></div><p class=\"votes\">"+score+"</p><div class=\"vote down\"></div></div><div class=\"thumbnail\"><img src=\""+thumbnail+"\"></div><div class=\"details\"><p class=\"title\"><a href=\""+url+"\">"+title+"</a><span style=\"font-size:10px;  color: rgb(136, 136, 136);\">("+domain+")</span></p><p class=\"tagline\">submitted <time title=\""+date+"\" class=\"live-timestamp\">"+timeSince(date)+" ago</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"/\">/r/"+subreddit+"</a></p><p class=\"comment\"><a href=\"http://www.reddit.com"+link+"\"<b>View "+commentCount+" comments</b></p></div></div>";
