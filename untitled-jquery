@@ -1,6 +1,8 @@
 $(document).ready(function(){
 	$("#submit").click(function(){
 		getInfo($("#url")[0].value,$("#returnEmbed"),"fill");
+		var text = getSnippet($("#url")[0].value);
+		$("#returnText").html(text);
 	});
 	var passedUrl = getQueryVariable();
 	if(passedUrl.length > 0){
@@ -14,6 +16,10 @@ $(document).ready(function(){
 		$(".item").each(function(){updateInfo($(this));});
 	},5000);
 });
+
+var getSnippet = function(url){
+	return "&lt;div class=&quot;reddit_post&quot;&gt;&lt;a href=&quot;"+url+"&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;script src=&quot;src.js&quot;&gt;&lt;/script&gt;";
+};
 
 
 var updateInfo = function(toUpdate){
