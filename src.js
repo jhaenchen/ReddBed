@@ -84,7 +84,7 @@ if(allSubreddits != null){
 }
 
 //Get all the embedded posts and fill them with the right html
-var allPosts = document.getElementsByClassName("reddit-post");
+var allPosts = document.getElementsByClassName("reddit_post");
 if(allPosts != null){
 	for(var i = 0; i < allPosts.length; i++){
 		getInfo(allPosts.item(i).getElementsByTagName("a").item(0).href,"fill",allPosts.item(i));
