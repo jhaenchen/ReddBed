@@ -15,8 +15,12 @@ var getInfo = function(url,mode,element){
 			element.innerHTML = html;
 			break;
 		case "prepend":
-			element.parent.insertBefore(el, parent.firstChild);
-			object.prepend(html);
+			console.log(element.parentElement);
+			
+			var div = document.createElement('div');
+			div.innerHTML = html;
+			var toInsert = div.firstChild;
+			element.parentElement.insertBefore(toInsert, parent.firstChild);
 			break;
 		}
 		console.log(html);
@@ -34,11 +38,45 @@ var getInfo = function(url,mode,element){
 	request.send();
 };
 
+var getSubreddit = function(subreddit,element){
+	$.ajax({
+	        url: 'http://api.reddit.com/r/'+subreddit,
+	        dataType: 'json',
+	        success: function(response) {
+				
+				//console.log("Front page link:" + response);
+				console.log(response.data.children);
+				var posts = response.data.children;
+				var frontPost;
+				for (i = 0; i < response.data.children.length-1; i++) {
+				    if (response.data.children[i].data.url.length > 0) { 
+						frontPost = response.data.children[i].data.url;
+						getInfo(frontPost,"prepend",element);
+					};
+				}
+				
+				
+				
+	        }
+	});
+};
+
+var allSubreddits = document.getElementsByClassName("reddit_subreddit");
+if(allSubreddits != null){
+	for(var g = 0; g < allSubreddits.length; g++){
+		console.log(allSubreddits.item(g).getElementsByTagName("a").item(0).href.split("/r/")[1]);
+		getSubreddit(allSubreddits.item(g).getElementsByTagName("a").item(0).href.split("/r/")[1],allSubreddits.item(g))
+	};
+}
+
 //Get all the embedded posts and fill them with the right html
 var allPosts = document.getElementsByClassName("reddit_post");
-for(var i = 0; i < allPosts.length; i++){
-	getInfo(allPosts.item(i).getElementsByTagName("a").item(0).href,"fill",allPosts.item(i));
-};
+if(allPosts != null){
+	for(var i = 0; i < allPosts.length; i++){
+		getInfo(allPosts.item(i).getElementsByTagName("a").item(0).href,"fill",allPosts.item(i));
+	};
+}
+
 
 //Update functionality
 setInterval(function(){
