@@ -10,7 +10,6 @@ $(document).ready(function(){
 		getInfo(passedUrl,$("#returnEmbed"),"fill");
 		//getInfo(passedUrl,$("#returnEmbed"),"prepend");
 	}
-	//$("#sample").html(getInfo("http://greatergood.berkeley.edu/article/item/this_is_your_brain_on_heartbreak"));
 	getFrontPageLink();
 	setInterval(function(){
 		$(".item").each(function(){updateInfo($(this));});
