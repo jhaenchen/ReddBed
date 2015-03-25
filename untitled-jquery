@@ -17,7 +17,7 @@ $(document).ready(function(){
 });
 
 var getSnippet = function(url){
-	return "&lt;div class=&quot;reddit_post&quot;&gt;&lt;a href=&quot;"+url+"&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;script src=&quot;src.js&quot;&gt;&lt;/script&gt;";
+	return "&lt;div class=&quot;reddit_post&quot;&gt;&lt;a href=&quot;"+url+"&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;script src=&quot;https://rawgit.com/jhaenchen/ReddBed/master/src.js&quot;&gt;&lt;/script&gt;";
 };
 
 
