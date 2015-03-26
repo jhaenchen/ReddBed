@@ -1,4 +1,4 @@
-
+//This gets the info for a particular reddit comment, parses it, then uses "mode" to determine how to interact with the "element" paramater. Based on "mode" the function will either append or fill.
 var getInfo = function(url,mode,element){
 	var request = new XMLHttpRequest();
 	request.open('GET', 'http://www.reddit.com/api/info.json?url='+url, true);
@@ -41,6 +41,7 @@ var getInfo = function(url,mode,element){
 	request.send();
 };
 
+//This gets the front page for a subreddit. You pass the subreddit name and the element you'd like to FILL (ONLY FILL).
 var getSubreddit = function(subreddit,element){
 	var request = new XMLHttpRequest();
 	request.open('GET', 'http://api.reddit.com/r/'+subreddit, true);
@@ -76,7 +77,7 @@ var getSubreddit = function(subreddit,element){
 };
 
 //Section: Comment
-
+//This gets information about a comment, parses it, then puts it in the element you direct it to using the mode parameter(not there yet)
 var getComment = function(commentId,element){
 	var request = new XMLHttpRequest();
 	request.open('GET', 'http://www.reddit.com/api/info.json?id=t1_'+commentId, true);
@@ -103,11 +104,12 @@ var getComment = function(commentId,element){
 	
 	
 };
-
+//This simply formats a string to take the individual pieces of information for any comment and return the properly formed HTML div.
 var createCommentEmbed = function(text,voteCount,date,user,subreddit,permalink){
 	return "<div class=\"red-comment\"><p class=\"red-comment-text\">"+text+"</p><div class=\"red-comment-footer\"><div class=\"red-comment-vote-container\"><p class=\"red-comment-vote\">"+voteCount+"</p></div><p class=\"red-comment-tagline\"><a href=\""+permalink+"\">submitted</a> <time title=\""+date+"\" class=\"red-comment-live-timestamp\">"+"2 hours, 4 minutes"+"</time> ago by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"\">/r/"+subreddit+"</a></p></div></div>";
 };
 
+//This gets all comments on the page and then gets the information and fills the div with the properly formed HTML.
 var allComments = document.getElementsByClassName("red-comment");
 if(allComments != null){
 	for(var f = 0; f < allComments.length; f++){
@@ -121,6 +123,7 @@ if(allComments != null){
 	};
 }
 
+//Gets all subreddit elements, gets the data and calls the helper function that will cycle through the results and populate posts.
 var allSubreddits = document.getElementsByClassName("reddit_subreddit");
 if(allSubreddits != null){
 	for(var g = 0; g < allSubreddits.length; g++){
@@ -159,11 +162,12 @@ var styleEl = document.createElement('style'),
    document.getElementById('reddbed-style').innerHTML = ".red-title { font-family:verdana, arial, helvetica, sans-serif; font-kerning:auto; font-size:16px; font-stretch:normal; font-style:normal; font-variant:normal; font-variant-ligatures:normal; font-weight:400; margin-right:.4em; position:relative; top:px; margin-top:0; margin-bottom:5px; } .red-tagline { font-family:verdana, arial, helvetica, sans-serif; font-kerning:auto; font-size:10px; font-stretch:normal; font-style:normal; font-variant:normal; font-variant-ligatures:normal; font-weight:400; margin-top:-5px; margin-bottom:0; } .red-details { margin-left:135px; } .red-thumbnail,.item { float:left; margin-right:5px; vertical-align:top; } .red-vote { height:14px; width:15px; } .red-up { background-image:url(reddit-images.png); background-position:-63px -818px; background-repeat:no-repeat; bottom-margin:0; height:14px; width:15px; margin:2px auto auto; } .red-down { background-image:url(reddit-images.png); background-position:-21px -818px; background-repeat:no-repeat; bottom-margin:0; height:14px; width:15px; margin:auto; } .red-item a:hover { text-decoration:underline; } .red-item { height:auto; width:100%; -webkit-border-radius:10px; -moz-border-radius:10px; border-radius:10px; border:2px solid #000; background-color:#F0F0F0; padding-left:5px; margin-right:5px; margin-bottom:2px; overflow:hidden; } .red-comment { font-family:verdana, arial, helvetica, sans-serif; font-kerning:auto; font-size:10px; font-stretch:normal; font-style:normal; font-variant:normal; font-variant-ligatures:normal; font-weight:400; margin-top:2px; margin-bottom:2px; } .red-vote_container { width:37px; float:left; height:48px; text-align:center; padding-right:10px; padding-left:3px; } .red-vote_container p { margin-top:1px; margin-bottom:0; font-family:verdana, arial, helvetica, sans-serif; font-kerning:auto; font-size:13px; font-stretch:normal; font-style:normal; font-variant:normal; font-variant-ligatures:normal; font-weight:700; color:#c6c6c6; } .red-item img { width:70px; } .red-item a,.red-title a,.red-title a:hover { text-decoration:none; }";
 	//styleEl.innerHTML("body{font-size:12px;}\n.title{font-size:22;}");
 
+//This simply formats a string to take the individual pieces of information for any comment and return the properly formed HTML div.
 	var createEmbed = function(title,url,domain,date,user,subreddit,commentCount,score,thumbnail,link){
 		return "<div class=\"red-item\"><div class=\"red-vote_container\"><div class=\"red-up\"></div><p class=\"red-votes\">"+score+"</p><div class=\"red-down\"></div></div><div class=\"red-thumbnail\"><img src=\""+thumbnail+"\"></div><div class=\"red-details\"><p class=\"red-title\"><a href=\""+url+"\">"+title+"</a><span style=\"font-size:10px;  color: rgb(136, 136, 136);\"> ("+domain+")</span></p><p class=\"red-tagline\">submitted <time title=\""+date+"\" class=\"red-live-timestamp\">"+timeSince(date)+" ago</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"/\">/r/"+subreddit+"</a></p><p class=\"red-comment\"><a href=\"http://www.reddit.com"+link+"\"<b>View "+commentCount+" comments</b></p></div></div>";
 	};
 
-
+//This calculates how long it has been in human readable time since a certain date.
  function timeSince(date) {
 var seconds = Math.floor(((new Date().getTime()/1000) - date)),
 
