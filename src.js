@@ -105,7 +105,7 @@ var getComment = function(commentId,element){
 };
 
 var createCommentEmbed = function(text,voteCount,date,user,subreddit,permalink){
-	return "<div class=\"red-comment\"><p class=\"red-comment-text\">"+text+"</p><div class=\"red-comment-footer\"><div class=\"red-comment-vote-container\"><p class=\"red-comment-vote\">"+voteCount+"</p></div><p class=\"red-comment-tagline\"><a href=\""+permalink+"\">submitted</a> <time title=\""+date+"\" class=\"red-comment-live-timestamp\">"+"2 hours, 4 minutes"+"</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"\">"+subreddit+"</a></p></div></div>";
+	return "<div class=\"red-comment\"><p class=\"red-comment-text\">"+text+"</p><div class=\"red-comment-footer\"><div class=\"red-comment-vote-container\"><p class=\"red-comment-vote\">"+voteCount+"</p></div><p class=\"red-comment-tagline\"><a href=\""+permalink+"\">submitted</a> <time title=\""+date+"\" class=\"red-comment-live-timestamp\">"+"2 hours, 4 minutes"+"</time> ago by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"\">/r/"+subreddit+"</a></p></div></div>";
 };
 
 var allComments = document.getElementsByClassName("red-comment");
