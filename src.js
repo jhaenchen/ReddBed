@@ -138,7 +138,7 @@ if(allPosts != null){
 }
 
 
-//Update functionality
+//Update post functionality
 setInterval(function(){
          var allPosts = document.getElementsByClassName("red-item");
 		 for(var i = 0; i < allPosts.length; i++){
