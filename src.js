@@ -75,6 +75,52 @@ var getSubreddit = function(subreddit,element){
 	
 };
 
+//Section: Comment
+
+var getComment = function(commentId,element){
+	var request = new XMLHttpRequest();
+	request.open('GET', 'http://www.reddit.com/api/info.json?id=t1_'+commentId, true);
+
+	request.onload = function() {
+	  if (request.status >= 200 && request.status < 400) {
+	    // Success!
+	    var data = JSON.parse(request.responseText);
+		console.log(data.data.children);
+		
+	  } else {
+	    // We reached our target server, but it returned an error
+
+	  }
+	};
+
+	request.onerror = function() {
+	  // There was a connection error of some sort
+	};
+
+	request.send();
+	
+	
+	
+	
+};
+
+var createCommentEmbed = function(text,voteCount,date,user,subreddit,permalink){
+	return "<div class=\"red-comment\"><p class=\"red-comment-text\">"+text+"</p><div class=\"red-comment-footer\"><div class=\"red-comment-vote-container\"><p class=\"red-comment-vote\">"+voteCount+"</p></div><p class=\"red-comment-tagline\"><a href=\""+permalink+"\">submitted</a> <time title=\""+date+"\" class=\"red-comment-live-timestamp\">"+"2 hours, 4 minutes"+"</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"\">"+subreddit+"</a></p></div></div>";
+};
+
+var allComments = document.getElementsByClassName("red-comment");
+if(allComments != null){
+	for(var f = 0; f < allComments.length; f++){
+		var element = allComments.item(f);
+		var div1 = document.createElement('div');
+		div1.innerHTML = createCommentEmbed("this is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the text",876,"2015-03-25T18:19:33+00:00","jakeh","videos","www.google.com");
+		var toInsert = div1.firstChild;
+		element.innerHTML = toInsert.innerHTML;
+		//console.log(allComments.item(f).getElementsByTagName("a").item(0).href.split("/r/")[1]);
+		//getComment(allComments.item(f).getElementsByTagName("a").item(0).href.split("/r/")[1],allComments.item(f))
+	};
+}
+
 var allSubreddits = document.getElementsByClassName("reddit_subreddit");
 if(allSubreddits != null){
 	for(var g = 0; g < allSubreddits.length; g++){
@@ -116,6 +162,7 @@ var styleEl = document.createElement('style'),
 	var createEmbed = function(title,url,domain,date,user,subreddit,commentCount,score,thumbnail,link){
 		return "<div class=\"red-item\"><div class=\"red-vote_container\"><div class=\"red-up\"></div><p class=\"red-votes\">"+score+"</p><div class=\"red-down\"></div></div><div class=\"red-thumbnail\"><img src=\""+thumbnail+"\"></div><div class=\"red-details\"><p class=\"red-title\"><a href=\""+url+"\">"+title+"</a><span style=\"font-size:10px;  color: rgb(136, 136, 136);\"> ("+domain+")</span></p><p class=\"red-tagline\">submitted <time title=\""+date+"\" class=\"red-live-timestamp\">"+timeSince(date)+" ago</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"/\">/r/"+subreddit+"</a></p><p class=\"red-comment\"><a href=\"http://www.reddit.com"+link+"\"<b>View "+commentCount+" comments</b></p></div></div>";
 	};
+
 
  function timeSince(date) {
 var seconds = Math.floor(((new Date().getTime()/1000) - date)),
