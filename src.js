@@ -9,7 +9,18 @@ var getInfo = function(url,mode,element){
 	    var response = JSON.parse(request.responseText);
 		console.log(response);
 		var post = response.data.children[0].data;
-		var html = createEmbed(post.title,post.url,post.domain,post.created_utc,post.author,post.subreddit,post.num_comments,post.score,post.thumbnail,post.permalink);
+		console.log(element.childNodes);
+		var childToKeep;
+		for(var j = 0; j < element.childNodes.length; j++){
+			if(element.childNodes[j].className === "child"){
+				childToKeep = element.childNodes[j];
+			};
+		}
+		//var childToKeep = element.children("child");
+		console.log(childToKeep);
+		
+		var html = createEmbed(post.title,post.url,post.domain,post.created_utc,post.author,post.subreddit,post.num_comments,post.score,post.thumbnail,post.permalink,childToKeep);
+		console.log(html);
 		var div = document.createElement('div');
 		div.innerHTML = html;
 		var toInsert = div.firstChild;
@@ -161,8 +172,20 @@ var styleEl = document.createElement('style'),
 	//styleEl.innerHTML("body{font-size:12px;}\n.title{font-size:22;}");
 
 //This simply formats a string to take the individual pieces of information for any comment and return the properly formed HTML div.
-	var createEmbed = function(title,url,domain,date,user,subreddit,commentCount,score,thumbnail,link){
-		return "<div class=\"red-item\"><div class=\"red-vote_container\"><div class=\"red-up\"></div><p class=\"red-votes\">"+score+"</p><div class=\"red-down\"></div></div><div class=\"red-thumbnail\"><img src=\""+thumbnail+"\"></div><div class=\"red-details\"><p class=\"red-title\"><a href=\""+url+"\">"+title+"</a><span style=\"font-size:10px;  color: rgb(136, 136, 136);\"> ("+domain+")</span></p><p class=\"red-tagline\">submitted <time title=\""+date+"\" class=\"red-live-timestamp\">"+timeSince(date)+" ago</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"/\">/r/"+subreddit+"</a></p><p class=\"red-comment-count\"><a href=\"http://www.reddit.com"+link+"\"<b>View "+commentCount+" comments</b></p></div></div>";
+	var createEmbed = function(title,url,domain,date,user,subreddit,commentCount,score,thumbnail,link,child){
+		var parentdiv = document.createElement("div");
+		parentdiv.innerHTML = child;
+		var newChild = parentdiv.firstChild;
+		console.log(child.innerHTML);
+		if(child !== null){
+		
+			return "<div class=\"red-item\"><div class=\"red-vote_container\"><div class=\"red-up\"></div><p class=\"red-votes\">"+score+"</p><div class=\"red-down\"></div></div><div class=\"red-thumbnail\"><img src=\""+thumbnail+"\"></div><div class=\"red-details\"><p class=\"red-title\"><a href=\""+url+"\">"+title+"</a><span style=\"font-size:10px;  color: rgb(136, 136, 136);\"> ("+domain+")</span></p><p class=\"red-tagline\">submitted <time title=\""+date+"\" class=\"red-live-timestamp\">"+timeSince(date)+" ago</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"/\">/r/"+subreddit+"</a></p><p class=\"red-comment-count\"><a href=\"http://www.reddit.com"+link+"\"<b>View "+commentCount+" comments</b></p></div><div class=\"child\">"+child.innerHTML+"</div></div>";
+		}
+		else{
+			console.log("nochild");
+			return "<div class=\"red-item\"><div class=\"red-vote_container\"><div class=\"red-up\"></div><p class=\"red-votes\">"+score+"</p><div class=\"red-down\"></div></div><div class=\"red-thumbnail\"><img src=\""+thumbnail+"\"></div><div class=\"red-details\"><p class=\"red-title\"><a href=\""+url+"\">"+title+"</a><span style=\"font-size:10px;  color: rgb(136, 136, 136);\"> ("+domain+")</span></p><p class=\"red-tagline\">submitted <time title=\""+date+"\" class=\"red-live-timestamp\">"+timeSince(date)+" ago</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"/\">/r/"+subreddit+"</a></p><p class=\"red-comment-count\"><a href=\"http://www.reddit.com"+link+"\"<b>View "+commentCount+" comments</b></p></div></div>";
+		}
+		
 	};
 
 //This calculates how long it has been in human readable time since a certain date.
