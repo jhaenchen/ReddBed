@@ -86,6 +86,7 @@ var getSubreddit = function(subreddit,element){
 //Section: Comment
 //This gets information about a comment, parses it, then puts it in the element you direct it to using the mode parameter(not there yet)
 var getComment = function(commentId,element){
+	var mode = "fill";
 	var request = new XMLHttpRequest();
 	request.open('GET', 'http://www.reddit.com/api/info.json?id=t1_'+commentId, true);
 
@@ -93,7 +94,21 @@ var getComment = function(commentId,element){
 	  if (request.status >= 200 && request.status < 400) {
 	    // Success!
 	    var data = JSON.parse(request.responseText);
-		console.log(data.data.children);
+		console.log(data.data.children[0].data);
+		var commentData = data.data.children[0].data;
+		var html = createCommentEmbed(commentData.body,commentData.score,commentData.created,commentData.author,commentData.subreddit,"permagoeshere");
+		var div = document.createElement('div');
+		div.innerHTML = html;
+		var toInsert = div.firstChild;
+		switch(mode){
+		case "fill":
+			element.innerHTML = toInsert.innerHTML;
+			break;
+		case "prepend":
+			console.log(element.parentElement);
+			element.parentElement.insertBefore(toInsert, parent.firstChild);
+			break;
+		}
 		
 	  } else {
 	    // We reached our target server, but it returned an error
@@ -113,7 +128,7 @@ var getComment = function(commentId,element){
 };
 //This simply formats a string to take the individual pieces of information for any comment and return the properly formed HTML div.
 var createCommentEmbed = function(text,voteCount,date,user,subreddit,permalink){
-	return "<div class=\"red-comment\"><p class=\"red-comment-text\">"+text+"</p><div class=\"red-comment-footer\"><div class=\"red-comment-vote-container\"><p class=\"red-comment-vote\">"+voteCount+"</p></div><p class=\"red-comment-tagline\"><a href=\""+permalink+"\">submitted</a> <time title=\""+date+"\" class=\"red-comment-live-timestamp\">"+"2 hours, 4 minutes"+"</time> ago by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"\">/r/"+subreddit+"</a></p></div></div>";
+	return "<div class=\"red-comment\"><p class=\"red-comment-text\">"+text+"</p><div class=\"red-comment-footer\"><div class=\"red-comment-vote-container\"><p class=\"red-comment-vote\">"+voteCount+"</p></div><p class=\"red-comment-tagline\"><a href=\""+permalink+"\">submitted</a> <time title=\""+date+"\" class=\"red-comment-live-timestamp\">"+timeSince(date)+"</time> ago by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"\">/r/"+subreddit+"</a></p></div></div>";
 };
 
 //This gets all comments on the page and then gets the information and fills the div with the properly formed HTML.
@@ -122,9 +137,10 @@ if(allComments != null){
 	for(var f = 0; f < allComments.length; f++){
 		var element = allComments.item(f);
 		var div1 = document.createElement('div');
-		div1.innerHTML = createCommentEmbed("this is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the textthis is the text",876,"2015-03-25T18:19:33+00:00","jakeh","videos","www.google.com");
-		var toInsert = div1.firstChild;
-		element.innerHTML = toInsert.innerHTML;
+		var split = allComments.item(f).getElementsByTagName("a").item(0).href.split("/");
+		
+		getComment(split[split.length-1],allComments.item(f))
+		
 		//console.log(allComments.item(f).getElementsByTagName("a").item(0).href.split("/r/")[1]);
 		//getComment(allComments.item(f).getElementsByTagName("a").item(0).href.split("/r/")[1],allComments.item(f))
 	};
