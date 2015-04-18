@@ -37,8 +37,17 @@ var getPostInfo = function(url,mode,element){
 			//element.innerHTML = toInsert.innerHTML;
 			break;
 		case "update":
-
-			element.parentElement.insertBefore(toInsert, parent.firstChild);
+			var toInsertCount = html.length;
+			var toReplaceCount = element.children.length;
+			for(var f = 0; f < toInsertCount; f++){
+				for(var g = 0; g < toReplaceCount; g++){
+					if(element.children[g].className === html[f].className){
+						console.log(html[f]);
+						element.children[g].innerHTML = html[f].innerHTML;
+					}
+				}
+			}
+			
 			break;
 		}
 		
@@ -196,8 +205,8 @@ if(allPosts != null){
 setInterval(function(){
          var allPosts = document.getElementsByClassName("red-item");
 		 for(var i = 0; i < allPosts.length; i++){
-			 console.log(allPosts.item(i));
-			//getPostInfo(allPosts.item(i).getElementsByClassName("red-title").item(0).getElementsByTagName("a").item(0).href,"fill",allPosts.item(i));
+			 
+			getPostInfo(allPosts.item(i).getElementsByClassName("red-title").item(0).getElementsByTagName("a").item(0).href,"update",allPosts.item(i));
 		}
     },5000);
 	
