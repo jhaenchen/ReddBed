@@ -33,7 +33,7 @@ var getPostInfo = function(url,mode,element){
 			for(var m = 0; m < count; m++){
 				link.parentNode.insertBefore(html[0],link);
 			}
-			
+			link.remove();
 			//element.innerHTML = toInsert.innerHTML;
 			break;
 		case "update":
