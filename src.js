@@ -101,8 +101,10 @@ var getSubredditFrontPage = function(subreddit,element){
 
 //Section: Comment
 //This gets information about a comment, parses it, then puts it in the element you direct it to using the mode parameter(not there yet)
-var getCommentInfo = function(commentId,element){
-	var mode = "fill";
+var getCommentInfo = function(permaLink,element,mode){
+	console.log(mode);
+	var split = permaLink.split("/");
+	var commentId = split[split.length - 1];
 	var request = new XMLHttpRequest();
 	request.open('GET', 'http://www.reddit.com/api/info.json?id=t1_'+commentId, true);
 
@@ -111,19 +113,36 @@ var getCommentInfo = function(commentId,element){
 	    // Success!
 	    var data = JSON.parse(request.responseText);
 		var commentData = data.data.children[0].data;
-		var html = createCommentEmbed(commentData.body,commentData.score,commentData.created,commentData.author,commentData.subreddit,"permagoeshere");
-		var div = document.createElement('div');
-		div.innerHTML = html;
-		console.log(data);
-		var toInsert = div.firstChild;
-
+		var html = createCommentEmbed(commentData.body,commentData.score,commentData.created_utc,commentData.author,commentData.subreddit,permaLink);
+	
 		switch(mode){
-		case "fill":
-			element.innerHTML = toInsert.innerHTML;
+		case "initialize":
+			
+			for(var f = 0; f < element.children.length; f++){
+				if(element.children[f].tagName === "A" || element.children[f].tagName === "a"){
+					var link = element.children[f];
+					
+				}
+			}
+			var count = html.length;
+			for(var m = 0; m < count; m++){
+				link.parentNode.insertBefore(html[0],link);
+			}
+			link.remove();
+			//element.innerHTML = toInsert.innerHTML;
 			break;
-		case "prepend":
-			console.log(element.parentElement);
-			element.parentElement.insertBefore(toInsert, parent.firstChild);
+		case "update":
+			
+			var toInsertCount = html.length;
+			var toReplaceCount = element.children.length;
+			for(var f = 0; f < toInsertCount; f++){
+				for(var g = 0; g < toReplaceCount; g++){
+					if(element.children[g].className === html[f].className){
+						element.children[g].innerHTML = html[f].innerHTML;
+					}
+				}
+			}
+			
 			break;
 		}
 		
@@ -145,7 +164,10 @@ var getCommentInfo = function(commentId,element){
 };
 //This simply formats a string to take the individual pieces of information for any comment and return the properly formed HTML div.
 var createCommentEmbed = function(text,voteCount,date,user,subreddit,permalink){
-	return "<div class=\"red-comment\"><p class=\"red-comment-text\">"+text+"</p><div class=\"red-comment-footer\"><div class=\"red-comment-vote-container\"><p class=\"red-comment-vote\">"+voteCount+"</p></div><p class=\"red-comment-tagline\"><a class=\"comment-perma\"href=\""+permalink+"\">submitted</a> <time title=\""+date+"\" class=\"red-comment-live-timestamp\">"+timeSince(date)+"</time> ago by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"\">/r/"+subreddit+"</a></p></div></div>";
+	var initString = "<p class=\"red-comment-text\">"+text+"</p><div class=\"red-comment-footer\"><div class=\"red-comment-vote-container\"><p class=\"red-comment-vote\">"+voteCount+"</p></div><p class=\"red-comment-tagline\"><a class=\"comment-perma\"href=\""+permalink+"\">submitted</a> <time title=\""+date+"\" class=\"red-comment-live-timestamp\">"+timeSince(date)+"</time> ago by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"\">/r/"+subreddit+"</a></p></div>";
+	var div = document.createElement('div');
+	div.innerHTML = initString;
+	return div.children;
 };
 
 //This simply formats a string to take the individual pieces of information for any comment and return the properly formed HTML div.
@@ -154,18 +176,14 @@ var createEmbed = function(title,url,domain,date,user,subreddit,commentCount,sco
 		parentdiv.innerHTML = child;
 		var newChild = parentdiv.firstChild;
 		//console.log(child.innerHTML);
-		if(child !== null){
+		
 		
 			var initString = "<div class=\"red-vote_container\"><div class=\"red-up\"></div><p class=\"red-votes\">"+score+"</p><div class=\"red-down\"></div></div><div class=\"red-thumbnail\"><img src=\""+thumbnail+"\"></div><div class=\"red-details\"><p class=\"red-title\"><a href=\""+url+"\">"+title+"</a><span style=\"font-size:10px;  color: rgb(136, 136, 136);\"> ("+domain+")</span></p><p class=\"red-tagline\">submitted <time title=\""+date+"\" class=\"red-live-timestamp\">"+timeSince(date)+" ago</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"/\">/r/"+subreddit+"</a></p><p class=\"red-comment-count\"><a href=\"http://www.reddit.com"+link+"\"><b>View "+commentCount+" comments</b></a></p></div>";
 			var div = document.createElement('div');
 			div.innerHTML = initString;
-			console.log(initString);
 			return div.children;
-		}
-		else{
-			console.log("nochild");
-			return "<div class=\"red-item\"><div class=\"red-vote_container\"><div class=\"red-up\"></div><p class=\"red-votes\">"+score+"</p><div class=\"red-down\"></div></div><div class=\"red-thumbnail\"><img src=\""+thumbnail+"\"></div><div class=\"red-details\"><p class=\"red-title\"><a href=\""+url+"\">"+title+"</a><span style=\"font-size:10px;  color: rgb(136, 136, 136);\"> ("+domain+")</span></p><p class=\"red-tagline\">submitted <time title=\""+date+"\" class=\"red-live-timestamp\">"+timeSince(date)+" ago</time> by <a href=\"http://www.reddit.com/user/"+user+"\">"+user+"</a> to <a href=\"http://www.reddit.com/r/"+subreddit+"/\">/r/"+subreddit+"</a></p><p class=\"red-comment-count\"><a href=\"http://www.reddit.com"+link+"\"<b>View "+commentCount+" comments</b></p></div></div>";
-		}
+		
+		
 		
 	};
 
@@ -175,8 +193,8 @@ if(allComments != null){
 	for(var f = 0; f < allComments.length; f++){
 		var element = allComments.item(f);
 		var div1 = document.createElement('div');
-		var split = allComments.item(f).getElementsByTagName("a").item(0).href.split("/");
-		getCommentInfo(split[split.length-1],allComments.item(f))
+		
+		getCommentInfo(allComments.item(f).getElementsByTagName("a").item(0).href,allComments.item(f),"initialize");
 		
 		//console.log(allComments.item(f).getElementsByTagName("a").item(0).href.split("/r/")[1]);
 		//getCommentInfo(allComments.item(f).getElementsByTagName("a").item(0).href.split("/r/")[1],allComments.item(f))
@@ -187,7 +205,6 @@ if(allComments != null){
 var allSubreddits = document.getElementsByClassName("reddit_subreddit");
 if(allSubreddits != null){
 	for(var g = 0; g < allSubreddits.length; g++){
-		console.log(allSubreddits.item(g).getElementsByTagName("a").item(0).href.split("/r/")[1]);
 		getSubredditFrontPage(allSubreddits.item(g).getElementsByTagName("a").item(0).href.split("/r/")[1],allSubreddits.item(g))
 	};
 }
@@ -206,9 +223,18 @@ setInterval(function(){
          var allPosts = document.getElementsByClassName("red-item");
 		 for(var i = 0; i < allPosts.length; i++){
 			 
-			getPostInfo(allPosts.item(i).getElementsByClassName("red-title").item(0).getElementsByTagName("a").item(0).href,"update",allPosts.item(i));
+			//getPostInfo(allPosts.item(i).getElementsByClassName("red-title").item(0).getElementsByTagName("a").item(0).href,"update",allPosts.item(i));
 		}
     },5000);
+	
+setInterval(function(){
+	var allComments = document.getElementsByClassName("red-comment");
+	
+	for(var i = 0; i < allComments.length; i++){
+		//console.log(i);
+	getCommentInfo(allComments.item(i).getElementsByClassName("comment-perma").item(0).href,allComments.item(i),"update");
+			}
+	    },5000);	
 	
 
 	var styleEl = document.createElement('style');
