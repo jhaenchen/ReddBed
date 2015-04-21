@@ -1,0 +1,11 @@
+body{
+	background-color: #2E9AFE;
+}
+
+#content h1{
+	font-family: 'Segoe UI', 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif; 
+	font-style: normal; font-variant: normal; font-weight: 500; line-height: 26.3999996185303px;
+	text-align: center;
+	color: #FFFFFF;
+	font-size: 56px;
+}

@@ -102,7 +102,6 @@ var getSubredditFrontPage = function(subreddit,element){
 //Section: Comment
 //This gets information about a comment, parses it, then puts it in the element you direct it to using the mode parameter(not there yet)
 var getCommentInfo = function(permaLink,element,mode){
-	console.log(mode);
 	var split = permaLink.split("/");
 	var commentId = split[split.length - 1];
 	var request = new XMLHttpRequest();
@@ -113,6 +112,7 @@ var getCommentInfo = function(permaLink,element,mode){
 	    // Success!
 	    var data = JSON.parse(request.responseText);
 		var commentData = data.data.children[0].data;
+		console.log(commentData);
 		var html = createCommentEmbed(commentData.body,commentData.score,commentData.created_utc,commentData.author,commentData.subreddit,permaLink);
 	
 		switch(mode){
