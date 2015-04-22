@@ -4,6 +4,16 @@
 <title>RedBedd: Embeddable reddit posts</title>
 <script src="jquery-2.1.3.js"></script>
 
+<!-- Important Owl stylesheet -->
+<link rel="stylesheet" href="owl.carousel/owl-carousel/owl.carousel.css">
+ 
+<!-- Default Theme -->
+<link rel="stylesheet" href="owl.carousel/owl-carousel/owl.theme.css">
+ 
+<!-- Include js plugin -->
+<script src="owl.carousel/owl-carousel/owl.carousel.js"></script>
+<script src="index.js"></script>
+
 
 <link rel="stylesheet" type="text/css" href="index.css">
 <link rel="shortcut icon" href="alien.png">
@@ -16,31 +26,48 @@
 		<div id="til_post" style="width:97%; margin: 0 auto;">
 			<div class="red-item"><a href="https://raw.githubusercontent.com/jhaenchen/ReddBed/master/alien.png"></a><div class="child"><div class="red-comment"><a href="http://www.reddit.com/r/reddbed/comments/336aea/til_reddbed_allows_you_to_embed_live_reddit_post/cqhx49q"></a><div class="child"><div class="red-comment"><a href="http://www.reddit.com/r/reddbed/comments/336aea/til_reddbed_allows_you_to_embed_live_reddit_post/cqhx503"></a><div class="child"><div class="red-comment"><a href="http://www.reddit.com/r/reddbed/comments/336aea/til_reddbed_allows_you_to_embed_live_reddit_post/cqhx5e3"></a></div><div class="red-comment"><a href="http://www.reddit.com/r/reddbed/comments/336aea/til_reddbed_allows_you_to_embed_live_reddit_post/cqhx6wm"></a><div class="child"><div class="red-comment"><a href="http://www.reddit.com/r/reddbed/comments/336aea/til_reddbed_allows_you_to_embed_live_reddit_post/cqhy7uj"></a></div></div></div></div></div></div></div><div class="red-comment"><a href="http://www.reddit.com/r/reddbed/comments/336aea/til_reddbed_allows_you_to_embed_live_reddit_post/cqhx920"></a></div></div></div>
 		<script src="http://rawgit.com/jhaenchen/ReddBed/master/src.js"></script>
-		<div class="link_out">Read the documentation</div>
-		<div class="link_out">Get the Chrome extension</div>
-		<div class="link_out">Contribute on GitHub</div>
-		
-		
-		<input type="text" name="url" id="url" placeholder="URL of the link">
-		<button id="submit">Create your own ReddBed</button><span style="font-size:12px;"> For your website...<span>
-		<p style="font-size:20px;">You can even make a Reddbed without coming to the site! Just enter the following code into your page html:</p>
-		<p style="font-size:20px;">&lt;div class=&quot;red-item&quot;&gt;&lt;a href=&quot;<span style="color: #bebebe">Put the target url here</span>&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;script src=&quot;https://rawgit.com/jhaenchen/ReddBed/master/src.js&quot;&gt;&lt;/script&gt;<p>
-		<a href="https://jsfiddle.net/jhaenchen/fLn97u8w/">Click here to see a JSFiddle example</a>
-		<p>ReddBed is also now testing a subreddit embed beta feature. Simply enter the following code into your website to embed the front page from any subreddit!</p>
-		<p>&lt;div class=&quot;reddit_subreddit&quot;&gt;&lt;a href=&quot;<span style="color: #bebebe">Put the subreddit url here</span>&quot;&gt;&lt;/a&gt;&lt;/div&gt;&lt;script src=&quot;https://rawgit.com/jhaenchen/ReddBed/master/src.js&quot;&gt;&lt;/script&gt;</p>
-	</div>
-	
-	<div id="returnEmbed"></div>
-	<div id="returnText"></div>
-	<br />
-	<div id="sample_container">
-		<div id="sample_title">
-			<h2>See the Front Page in <span style="font-size:18px;">Action</span></h2>
-			
+		<div class="button_container">
+		<a href="" class="myButton">Read the documentation</a>
 		</div>
-		<img id="loading" src="loading.gif"></img>
-		<div id="sample" class="post"></div>
+		<div class="button_container">
+		<a href="#" class="myButton">Get the Chrome extension</a>
+		</div>
+		<div class="button_container">
+		<a href="https://github.com/jhaenchen/ReddBed" class="myButton">Contribute on GitHub</a>
+		</div>
+		<div class="owl-carousel" id="owl" style="position:relative; top:15px;">
+		<div class="red-item" style="height:90px;">
+			<div class="red-vote_container">
+				<div class="red-up"></div>
+				<p class="red-votes">1</p>
+				<div class="red-down"></div>
+			</div>
+			<div class="red-thumbnail">
+				<img src="http://b.thumbs.redditmedia.com/0VUpONNRKhyF8aU_-EDqfCyd1mDmSs2OU74FaNHxG6M.jpg">
+			</div>
+			<div class="red-details">
+				<p class="red-title">
+					<a href="https://www.youtube.com/watch?v=3h3_IZWhX0g">Fire Truck Drives Through 11ft Flood</a><span style="font-size:10px;  color: rgb(136, 136, 136);"> (youtube.com)</span>
+				</p>
+				<p class="red-tagline">submitted <time title="1429726592" class="red-live-timestamp">54 minutes, 55 seconds ago</time> by <a href="http://www.reddit.com/user/WYLD_STALLYNS">WYLD_STALLYNS</a> to <a href="http://www.reddit.com/r/nonononoyes/">/r/nonononoyes</a></p><p class="red-comment-count"><a href="http://www.reddit.com/r/nonononoyes/comments/33i2iz/fire_truck_drives_through_11ft_flood/"><b>View 0 comments</b></a></p>
+			</div>
+		</div>
+		
+		<div class="red-item" style="height:90px;"><div class="red-vote_container"><div class="red-up"></div><p class="red-votes">1</p><div class="red-down"></div></div><div class="red-thumbnail"><img src="http://a.thumbs.redditmedia.com/PDQadCzYX_x1bU3KrYuhTptu6eDdOVVagFG6q_Afyb4.jpg"></div><div class="red-details"><p class="red-title"><a href="http://vimeo.com/94502406">This animated short about a lazy guy in outer space is pretty hilarious.</a><span style="font-size:10px;  color: rgb(136, 136, 136);"> (vimeo.com)</span></p><p class="red-tagline">submitted <time title="1425280702" class="red-live-timestamp">51 days, 11 hours ago</time> by <a href="http://www.reddit.com/user/privd">privd</a> to <a href="http://www.reddit.com/r/Fun/">/r/Fun</a></p><p class="red-comment-count"><a href="http://www.reddit.com/r/Fun/comments/2xncgc/this_animated_short_about_a_lazy_guy_in_outer/"><b>View 0 comments</b></a></p></div></div>
+		<div class="red-item" style="height:90px"><div class="red-vote_container"><div class="red-up"></div><p class="red-votes">67</p><div class="red-down"></div></div><div class="red-thumbnail"><img src="http://a.thumbs.redditmedia.com/uKEENWBo-4TZ51hP.jpg"></div><div class="red-details"><p class="red-title"><a href="http://www.youtube.com/watch?v=SOpwHaQnRSY">Microsoft's new "Hyperlapse" technology could make our Gopro videos extremely smooth.</a><span style="font-size:10px;  color: rgb(136, 136, 136);"> (youtube.com)</span></p><p class="red-tagline">submitted <time title="1407867409" class="red-live-timestamp">8 months, 13 days ago</time> by <a href="http://www.reddit.com/user/Junkymonke">Junkymonke</a> to <a href="http://www.reddit.com/r/motorcycles/">/r/motorcycles</a></p><p class="red-comment-count"><a href="http://www.reddit.com/r/motorcycles/comments/2dcusc/microsofts_new_hyperlapse_technology_could_make/"><b>View 15 comments</b></a></p></div></div>
+		<div class="red-item" style="height:90px"><div class="red-vote_container"><div class="red-up"></div><p class="red-votes">204</p><div class="red-down"></div></div><div class="red-thumbnail"><img src="http://b.thumbs.redditmedia.com/jQgzEdJCe4wkYwMmy6xBUmK9XenOdN1YW69zGPDUatY.jpg"></div><div class="red-details"><p class="red-title"><a href="http://recode.net/2015/01/28/ftc-says-unlimited-data-with-throttling-doesnt-count-as-unlimited/">FTC Says Unlimited Data With Throttling Doesn’t Count as Unlimited</a><span style="font-size:10px;  color: rgb(136, 136, 136);"> (recode.net)</span></p><p class="red-tagline">submitted <time title="1422562073" class="red-live-timestamp">2 months, 22 days ago</time> by <a href="http://www.reddit.com/user/L6Fd77i6E">L6Fd77i6E</a> to <a href="http://www.reddit.com/r/sysadmin/">/r/sysadmin</a></p><p class="red-comment-count"><a href="http://www.reddit.com/r/sysadmin/comments/2u47mp/ftc_says_unlimited_data_with_throttling_doesnt/"><b>View 16 comments</b></a></p></div></div>
+		<div class="red-item" style="height:90px"><div class="red-vote_container"><div class="red-up"></div><p class="red-votes">10694</p><div class="red-down"></div></div><div class="red-thumbnail"><img src="http://b.thumbs.redditmedia.com/M3W4YpiKx4TMAlMUgQ3JEJUqL1XrbiZWfU_TAGpeqng.jpg"></div><div class="red-details"><p class="red-title"><a href="http://i.imgur.com/rEVSKpO.jpg">This stunning ancient Greek floor mosaic was just excavated in southern Turkey, near the Syrian border.</a><span style="font-size:10px;  color: rgb(136, 136, 136);"> (i.imgur.com)</span></p><p class="red-tagline">submitted <time title="1416360851" class="red-live-timestamp">5 months, 4 days ago</time> by <a href="http://www.reddit.com/user/DonTago">DonTago</a> to <a href="http://www.reddit.com/r/pics/">/r/pics</a></p><p class="red-comment-count"><a href="http://www.reddit.com/r/pics/comments/2mq5r3/this_stunning_ancient_greek_floor_mosaic_was_just/"><b>View 1978 comments</b></a></p></div></div>
 	</div>
+		
+		
+		
+		
+		
+		
+
+		
+		
+		
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
