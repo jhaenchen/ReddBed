@@ -9,3 +9,12 @@ body{
 	color: #FFFFFF;
 	font-size: 56px;
 }
+
+.link_out{
+	float: left;
+	width:33%;
+	text-align:center;
+	height:30px;
+	border: 2px solid black;
+	background-color: #819FF7;
+}
