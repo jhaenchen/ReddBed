@@ -44,6 +44,7 @@ body{
 	padding:6px 13px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #263666;
+	z-index:5;
 }
 .myButton:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #415989), color-stop(1, #2e466e));
@@ -60,4 +61,4 @@ body{
 	top:1px;
 }
 
-.red-item{margin-right:5px;}
+.owl-item{margin-right:-5px;}
