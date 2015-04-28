@@ -1,14 +1,9 @@
 # ReddBed
 Embeddable updating reddit posts for sharing and posting around the web.
 
-ReddBed allows you to embed reddit content in your website. It loads and updates automatically. You can embed redit posts, comments, and even subreddits incredibly easily by simply copying the TWO LINES of code required to embed. You can find this snippet, properly prepared for use at:
+ReddBed allows you to embed live reddit content in your website. It loads and updates automatically. You can embed redit posts, comments, and even subreddits incredibly easily by simply copying the TWO LINES of code required to embed. For more complex hierarchies you can use the Reddbed chrome extension to generate the entire tree of selected comments. You can contribute to the Chrome extension [here](https://github.com/jhaenchen/ReddBedExtension). You can even use the chrome extension to generate Reddit markdown comment hierarchies, to make complex conversation references easier.
 
-htmlpreview.github.io/?https://github.com/jhaenchen/ReddBed/blob/master/untitled.html
+Please feel free to message me on reddit or GitHub with any questions.
 
-Here's a breakdown of the key files:
-
-"src.js" is the actual embed js file. It's what users call when they embed my script. It's where most of the cool work is done.
-
-The rest of the stuff is mostly for the front page, which can still be interesting work.
 
 Thanks for checking out ReddBed!
